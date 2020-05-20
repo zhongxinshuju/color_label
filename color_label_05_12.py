@@ -91,15 +91,27 @@ for cci in os.listdir(dir_csv):
                 img.polygon(listll, fill=(int(labelpath['code'])))
         
         # 2: rgb label image; 1: black-white  label image
-        im1.save(fi + "-2.png")
+        color = os.path.join(dir_img,"label_color\\")
+        try:
+          os.makedirs(color)
+        except OSError as e:
+          pass
+        
+        heibai = os.path.join(dir_img,"label_images\\")
+        try:
+          os.makedirs(heibai)
+        except OSError as e:
+          pass
+        
+        im1.save(color + fi + ".png")
         img1=img1.convert('L')
-        img1.save(fi+"-1.png")
+        img1.save(heibai + fi + ".png")
         # im3 = cv2.imread(fi + "-2.png")
         # im4=cv2.imread(url2+fi + ".jpg")
         # # im1= cv2.blur(im1, (im1.shape[0], im.shape[1]))
         #
         #
-        img2 = Image.open(fi + "-1.png").convert('L')
+        img2 = Image.open(fi + ".png").convert('L')
         img=np.array(img2)
 
         print(np.unique(img1))
